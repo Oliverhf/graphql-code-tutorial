@@ -32,7 +32,6 @@ const typeDefs = gql`
         nationality: Nationality = BRAZIL
     }
 
-
     input UpdateUsernameInput{
         id: ID!
         newUsername: String!
@@ -51,6 +50,8 @@ const typeDefs = gql`
         UNITED_STATES
         CHILE
     }
+
+
 
 `
 

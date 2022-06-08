@@ -1,10 +1,17 @@
 const { UserList, MovieList } = require("../DummyData");
 const _ = require("lodash");
 
+
+/*
+  query -> users -> favoriteMovies -> anotherLevel
+
+*/
+
 const resolvers = {
   Query: {
     // USER RESOLVERS
-    users: () => {
+    users: (parent, args, context, info) => {
+      console.log(info)
       return UserList;
     },
     user: (parent, args) => {
@@ -18,14 +25,15 @@ const resolvers = {
       return MovieList;
     },
 
-    movie: (parent, args) => {
+    movie: (parent, args, context, info) => {
       const name = args.name;
       const movie = _.find(MovieList, { name });
       return movie;
     },
   },
   User: {
-    favoriteMovies: () => {
+    favoriteMovies: (parent) => {
+      console.log(parent)
       return _.filter(
         MovieList,
         (movie) =>
@@ -60,7 +68,7 @@ const resolvers = {
       _.remove(UserList, (user) => user.id === Number(id)) 
       return null
     }
-  }
+  },
 };
 
 module.exports = { resolvers };
